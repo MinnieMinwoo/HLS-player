@@ -1,6 +1,9 @@
 # Uploads directory
 uploads/
 
+# HLS output directory
+hls/
+
 # Go binary
 hls-player
 

@@ -66,4 +66,12 @@ func HandleUpload(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	fmt.Fprintf(w, `{"status":"success","message":"Video uploaded successfully","filename":"latest%s"}`, ext)
+
+	go func() {
+		if err := Transcode(filePath); err != nil {
+			fmt.Println("Transcoding error:", err)
+		} else {
+			fmt.Println("Transcoding completed successfully")
+		}
+	}()
 }
