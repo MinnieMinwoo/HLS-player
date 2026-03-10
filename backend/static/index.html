@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HLS Video Uploader</title>
+  </head>
+  <body>
+    <h1>Video Uploader</h1>
+    <form id="uploadForm">
+      <input type="file" id="videoFile" accept="video/*" required />
+      <button type="submit">Upload</button>
+    </form>
+    <div id="message"></div>
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      const fileInput = document.getElementById("videoFile");
+      const messageDiv = document.getElementById("message");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("video", file);
+
+        try {
+          const response = await fetch("/upload", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (response.ok) {
+            messageDiv.textContent = "Success!";
+            fileInput.value = "";
+          } else {
+            const text = await response.text();
+            messageDiv.textContent = "Failed: " + text;
+            messageDiv.style.color = "red";
+          }
+        } catch (error) {
+          messageDiv.textContent = "Error: " + error.message;
+          messageDiv.style.color = "red";
+        }
+      });
+    </script>
+  </body>
+</html>

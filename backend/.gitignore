@@ -1,0 +1,21 @@
+# Uploads directory
+uploads/
+
+# Go binary
+hls-player
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.exe
+*.dll
+*.so
+*.dylib
